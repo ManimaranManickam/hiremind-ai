@@ -1,0 +1,20 @@
+services:
+  # Python FastAPI Backend
+  - type: web
+    name: hiremind-api
+    env: python
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: hiremind-db
+          property: connectionString
+      - key: OPENAI_API_KEY
+        sync: false # Set this manually in Render Dashboard
+
+  # PostgreSQL Database
+  - type: psql
+    name: hiremind-db
+    plan: free # Change if needed

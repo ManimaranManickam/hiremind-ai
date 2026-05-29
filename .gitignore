@@ -1,0 +1,21 @@
+# Node
+node_modules/
+dist/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# MacOS
+.DS_Store
+
+# SQLite / Database
+*.db
+*.sqlite3
+
+# ChromaDB / Vector Store cache
+chroma_data/

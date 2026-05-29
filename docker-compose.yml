@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - DATABASE_URL=postgresql://hiremind:password@postgres:5432/hiremind_db
+      - CHROMADB_URL=http://chromadb:8000
+    depends_on:
+      - postgres
+      - chromadb
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: hiremind
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: hiremind_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  chromadb:
+    image: chromadb/chroma:latest
+    environment:
+      - IS_PERSISTENT=TRUE
+    ports:
+      - "8001:8000"
+    volumes:
+      - chromadb_data:/chroma/chroma
+
+volumes:
+  postgres_data:
+  chromadb_data:
