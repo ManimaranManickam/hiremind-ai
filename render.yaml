@@ -14,7 +14,6 @@ services:
       - key: OPENAI_API_KEY
         sync: false # Set this manually in Render Dashboard
 
-  # PostgreSQL Database
-  - type: psql
-    name: hiremind-db
+databases:
+  - name: hiremind-db
     plan: free # Change if needed
